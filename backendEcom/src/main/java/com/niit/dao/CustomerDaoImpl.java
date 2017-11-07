@@ -9,34 +9,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.niit.models.Category;
+import com.niit.models.Customer;
 
-@Repository("categoryDao")
+@Repository("customerDao")
 
 @Transactional
-public class CategoryDaoImpl implements CategoryDao {
+public class CustomerDaoImpl implements CustomerDao {
  @Autowired
  SessionFactory sessionFactory;
 
 
 
 @Override
-public List<Category> getAllCategory() {
+public List<Customer> getAllCustomer() {
 	// TODO Auto-generated method stub
 	Session session = sessionFactory.openSession();
-	  Query query = session.createQuery("from Category"); // HQL is used here
+	  Query query = session.createQuery("from customer"); // HQL is used here
 	               // not SQL
-	  List <Category> categorylist = query.list();
+	  List <Customer> custmerlist = query.list();
 	  session.close();
-	  return categorylist;
+	  return custmerlist;
 
 	
 }
 
 @Override
-public boolean save(Category c) {
+public boolean save(Customer c) {
 	  try {
 		   Session session = sessionFactory.openSession();
+		   c.setRole("ROLE_USER");
 		   session.save(c);
 		   session.flush();
 		   session.close();
@@ -49,7 +50,7 @@ public boolean save(Category c) {
 }
 
 @Override
-public boolean update(Category c) {
+public boolean update(Customer c) {
 	// TODO Auto-generated method stub
 
 	 try {
@@ -68,10 +69,12 @@ public boolean update(Category c) {
 }
 
 @Override
-public Category getById(int id) {
+public Customer getByEmail(String email) {
 	// TODO Auto-generated method stub
 	Session session = sessionFactory.openSession();
-	Category c = (Category) session.get(Category.class, id);
+	String hql="from Customer where email='"+email+"'";
+	Query query = session.createQuery(hql);
+	Customer c = (Customer) query.list().get(0);
 	  session.close();
 	  return c;
 }
@@ -79,10 +82,10 @@ public Category getById(int id) {
 
 
 @Override
-public boolean deleteById(int id) {
+public boolean deleteById(int cusid) {
  try {
   Session session = sessionFactory.openSession();
-  Category c = (Category) session.get(Category.class, id);
+  Customer c = (Customer) session.get(Customer.class, cusid);
   if (c== null)
    return false;
   session.delete(c);

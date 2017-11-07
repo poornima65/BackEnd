@@ -1,4 +1,6 @@
 package com.niit.models;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,12 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table
-public class Category{
+public class Category implements Serializable{
  @Id
  // Automatically Assigns Value to id using Sequence
  @SequenceGenerator(name = "catseq", sequenceName = "catseq")
  @GeneratedValue(strategy=GenerationType.AUTO,generator = "catseq")
-    int id;
+    int catId;
  
  
  @Column
@@ -29,11 +31,12 @@ public class Category{
  @NotBlank
  @Size(min=8)
  String description;
-public int getId() {
-	return id;
+
+public int getCatId() {
+	return catId;
 }
-public void setId(int id){
-	this.id = id;
+public void setCatId(int catId) {
+	this.catId = catId;
 }
 public String getName(){
 	return name;

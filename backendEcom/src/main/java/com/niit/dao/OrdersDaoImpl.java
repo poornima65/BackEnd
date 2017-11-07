@@ -2,6 +2,8 @@ package com.niit.dao;
 
 import java.util.List;
 
+
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,35 +11,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.niit.models.Category;
+import com.niit.models.Orders;
 
-@Repository("categoryDao")
+
+@Repository("OrdersDao")
 
 @Transactional
-public class CategoryDaoImpl implements CategoryDao {
+public class OrdersDaoImpl implements OrdersDao {
  @Autowired
  SessionFactory sessionFactory;
 
+@Autowired
+ProductDao productDao;
 
 
-@Override
-public List<Category> getAllCategory() {
+public List<Orders> getAllOrder() {
 	// TODO Auto-generated method stub
 	Session session = sessionFactory.openSession();
-	  Query query = session.createQuery("from Category"); // HQL is used here
+	  Query query = session.createQuery("from Orders"); // HQL is used here
 	               // not SQL
-	  List <Category> categorylist = query.list();
+	  List <Orders> orderslist = query.list();
 	  session.close();
-	  return categorylist;
+	  return orderslist;
 
 	
 }
 
-@Override
-public boolean save(Category c) {
+
+public boolean save(Orders o) {
 	  try {
 		   Session session = sessionFactory.openSession();
-		   session.save(c);
+		   session.save(o);
 		   session.flush();
 		   session.close();
 		  } catch (Exception e) {
@@ -48,13 +52,12 @@ public boolean save(Category c) {
 		   return true;
 }
 
-@Override
-public boolean update(Category c) {
+public boolean update(Orders o) {
 	// TODO Auto-generated method stub
 
 	 try {
 		   Session session = sessionFactory.openSession();
-		   session.update(c);
+		   session.update(o);
 		   session.flush();
 		   session.close();
 		  } catch (Exception e) {
@@ -67,25 +70,22 @@ public boolean update(Category c) {
 	
 }
 
-@Override
-public Category getById(int id) {
+public Orders getById(int cusid) {
 	// TODO Auto-generated method stub
 	Session session = sessionFactory.openSession();
-	Category c = (Category) session.get(Category.class, id);
+	Orders o = (Orders) session.get(Orders.class, cusid);
 	  session.close();
-	  return c;
+	  return o;
 }
 
 
-
-@Override
-public boolean deleteById(int id) {
+public boolean deleteById(int cusid) {
  try {
   Session session = sessionFactory.openSession();
-  Category c = (Category) session.get(Category.class, id);
-  if (c== null)
+  Orders o = (Orders) session.get(Orders.class, cusid);
+  if (o== null)
    return false;
-  session.delete(c);
+  session.delete(o);
   session.flush();
   session.close();
  } catch (Exception e) {
@@ -94,6 +94,7 @@ public boolean deleteById(int id) {
 
  return true;
 }
+
 
 
 }

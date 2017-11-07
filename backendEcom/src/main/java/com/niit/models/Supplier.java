@@ -1,4 +1,6 @@
 package com.niit.models;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,12 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table
-public class Supplier {
+public class Supplier implements Serializable {
  @Id
  // Automatically Assigns Value to id using Sequence
- @SequenceGenerator(name = "catseq", sequenceName = "catseq")
- @GeneratedValue(strategy=GenerationType.AUTO,generator = "catseq")
-    int id;
+ @SequenceGenerator(name = "supseq", sequenceName = "supseq")
+ @GeneratedValue(strategy=GenerationType.AUTO,generator = "supseq")
+    int supId;
  
  
  @Column
@@ -29,11 +31,12 @@ public class Supplier {
  @NotBlank
  @Size(min=8)
  String description;
-public int getId() {
-	return id;
+
+public int getSupId() {
+	return supId;
 }
-public void setId(int id) {
-	this.id = id;
+public void setSupId(int supId) {
+	this.supId = supId;
 }
 public String getName() {
 	return name;

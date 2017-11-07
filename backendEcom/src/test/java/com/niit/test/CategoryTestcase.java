@@ -28,7 +28,7 @@ static	CategoryDao categorydao;
 		config.scan("com.niit");
 		config.refresh();
 		category =  (Category)config.getBean("category");
-		categorydao=  (CategoryDao)config.getBean("categoryDAO");
+		categorydao=  (CategoryDao)config.getBean("categoryDao");
 	
 	}
 	@Test
@@ -53,7 +53,7 @@ static	CategoryDao categorydao;
 	@Test
 	public void test1()
 	{
-		category.setId(1);
+		//category.setCatId(1);
 		category.setName("Lipstick");
 	    category.setDescription("updated Lipstick");
 	    boolean updated=categorydao.update(category);
