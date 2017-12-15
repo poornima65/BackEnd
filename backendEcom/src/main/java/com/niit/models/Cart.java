@@ -26,6 +26,7 @@ public class Cart{
  @OneToOne
  @JoinColumn(name="productid")
  Product product;
+ 
  int qty; 
  
 public int getCartid() {

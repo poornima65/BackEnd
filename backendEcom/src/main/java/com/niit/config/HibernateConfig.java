@@ -24,12 +24,11 @@ public class HibernateConfig {
   BasicDataSource dataSource = new BasicDataSource();
   // DriverManagerDataSource dataSource = new DriverManagerDataSource();
   dataSource.setDriverClassName("org.h2.Driver");
-  dataSource.setUrl("jdbc:h2:~/test");
+  dataSource.setUrl("jdbc:h2:tcp://localhost/~/BeautyFronteEnd");
   dataSource.setUsername("sa"); // Schema name
-  dataSource.setPassword("");
+  dataSource.setPassword("sa");
   return dataSource;
  }
-
  private Properties getHibernateProperties() {
   Properties p = new Properties();
   p.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
